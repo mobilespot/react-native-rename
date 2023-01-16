@@ -55,7 +55,7 @@ export const getIosUpdateFilesContentOptions = ({
       to: [`${cleanNewPathContentStr}`, `${cleanNewPathContentStr}Tests`],
     },
     {
-      files: ['ios/*/AppDelegate.mm', 'ios/*/AppDelegate.m'],
+      files: ['ios/*/AppDelegate.mm', 'ios/*/AppDelegate.mm'],
       from: [new RegExp(`@"${currentName}"`, 'g')],
       to: `@"${newName}"`,
     },
