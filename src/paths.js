@@ -55,7 +55,7 @@ export const getIosUpdateFilesContentOptions = ({
       to: [`${cleanNewPathContentStr}`, `${cleanNewPathContentStr}Tests`],
     },
     {
-      files: ['ios/*/AppDelegate.mm', 'ios/*/AppDelegate.mm'],
+      files: ['ios/*/AppDelegate.mm', 'ios/*/AppDelegate.m'],
       from: [new RegExp(`@"${currentName}"`, 'g')],
       to: `@"${newName}"`,
     },
@@ -223,8 +223,6 @@ export const getAndroidUpdateBundleIDOptions = ({
   return [
     {
       files: [
-        'android/app/_BUCK',
-        'android/app/BUCK',
         'android/app/build.gradle',
         `android/app/src/debug/java/${newBundleIDAsPath}/ReactNativeFlipper.java`,
         `android/app/src/release/java/${newBundleIDAsPath}/ReactNativeFlipper.java`,
