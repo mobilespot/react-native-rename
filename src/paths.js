@@ -201,26 +201,10 @@ export const getAndroidUpdateFilesContentOptions = ({
       from: currentName,
       to: newName,
     },
-    // Update *_appmodules name
-    {
-      files: `android/app/src/main/java/${newBundleIDAsPath}/newarchitecture/modules/MainApplicationTurboModuleManagerDelegate.java`,
-      from: /SoLoader\.loadLibrary\("(.*)"\)/g,
-      to: `SoLoader.loadLibrary("${newModulesName}_appmodules")`,
-    },
-    {
-      files: 'android/app/src/main/jni/CMakeLists.txt',
-      from: /project\((.*)\)/g,
-      to: `project(${newModulesName}_appmodules)`,
-    },
     {
       files: 'android/app/build.gradle',
       from: /targets \"(.*)_appmodules\"/,
       to: `targets "${newModulesName}_appmodules"`,
-    },
-    {
-      files: 'android/app/src/main/jni/Android.mk',
-      from: /LOCAL_MODULE \:\= (.*)_appmodules/,
-      to: `LOCAL_MODULE := ${newModulesName}_appmodules`,
     },
     {
       files: 'android/.idea/workspace.xml',
@@ -243,28 +227,12 @@ export const getAndroidUpdateBundleIDOptions = ({
         'android/app/BUCK',
         'android/app/build.gradle',
         `android/app/src/debug/java/${newBundleIDAsPath}/ReactNativeFlipper.java`,
+        `android/app/src/release/java/${newBundleIDAsPath}/ReactNativeFlipper.java`,
         `android/app/src/main/java/${newBundleIDAsPath}/MainActivity.java`,
         `android/app/src/main/java/${newBundleIDAsPath}/MainApplication.java`,
       ],
       from: new RegExp(`${currentBundleID}`, 'g'),
       to: newBundleID,
-    },
-    {
-      files: [
-        `android/app/src/main/java/${newBundleIDAsPath}/newarchitecture/MainApplicationReactNativeHost.java`,
-        `android/app/src/main/java/${newBundleIDAsPath}/newarchitecture/components/MainComponentsRegistry.java`,
-        `android/app/src/main/java/${newBundleIDAsPath}/newarchitecture/modules/MainApplicationTurboModuleManagerDelegate.java`,
-      ],
-      from: new RegExp(currentBundleID, 'g'),
-      to: newBundleID,
-    },
-    {
-      files: [
-        'android/app/src/main/jni/MainApplicationTurboModuleManagerDelegate.h',
-        'android/app/src/main/jni/MainComponentsRegistry.h',
-      ],
-      from: [new RegExp(`L${currentBundleIDAsPath}`, 'g'), new RegExp(`L${currentBundleID}`, 'g')],
-      to: `L${newBundleIDAsPath}`,
     },
     {
       files: 'android/.idea/workspace.xml',
